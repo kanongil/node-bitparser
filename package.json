@@ -1,0 +1,29 @@
+{
+  "name": "bitparser",
+  "version": "0.1.0",
+  "description": "Optimized parsing of bits from a Buffer",
+  "main": "bitparser.js",
+  "scripts": {
+    "test": "node test/test.bitparser.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/kanongil/node-bitparser.git"
+  },
+  "keywords": [
+    "parser",
+    "parsing",
+    "binary",
+    "bits",
+    "buffer"
+  ],
+  "author": "Gil Pedersen <gpdev@gpost.dk>",
+  "license": "BSD",
+  "readmeFilename": "README.md",
+  "directories": {
+    "test": "test"
+  },
+  "bugs": {
+    "url": "https://github.com/kanongil/node-bitparser/issues"
+  }
+}
