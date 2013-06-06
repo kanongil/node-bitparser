@@ -1,5 +1,4 @@
-var util = require('util'),
-    assert = require('assert');
+var assert = require('assert');
 
 module.exports = bitparser;
 exports.BitParser = BitParser;
@@ -16,18 +15,19 @@ function BitParser(buffer) {
 
 // last 5 bits of index must be === 0 when this is called
 BitParser.prototype._fillCache = function() {
-  var rem = this.buffer.length - (this.index >> 3);
+  var rem = this.buffer.length - (this.index >>> 3);
+  var offset = (this.index >>> 3) & ~3;
   if (rem < 4) {
     if (rem === 1) {
-      this.cache = this.buffer.readUInt8(this.index >> 3, false) << 24;
+      this.cache = this.buffer.readUInt8(offset, true) << 24;
     } else if (rem > 0) {
-      this.cache = this.buffer.readUInt16BE(this.index >> 3, false) << 16;
+      this.cache = this.buffer.readUInt16BE(offset, true) << 16;
       if (rem === 3) {
-        this.cache |= this.buffer.readUInt8((this.index >> 3) + 2, false) << 8;
+        this.cache |= this.buffer.readUInt8(offset + 2, true) << 8;
       }
     }
   } else {
-    this.cache = ~~this.buffer.readUInt32BE(this.index >> 3, false);
+    this.cache = ~~this.buffer.readUInt32BE(offset, true);
   }
 }
 
@@ -58,7 +58,7 @@ BitParser.prototype.readBits = function(n) {
     if (res >>> 31) // typecast signed integer to unsigned number
       res = 2 * (res >>> 1) + (res & 1);
   } else {
-    var mask = ((1 << n) - 1) >> 0;
+    var mask = ((1 << n) - 1) >>> 0;
     res &= mask;
   }
 
