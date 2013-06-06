@@ -47,6 +47,11 @@ Read 1 bit from the buffer, advancing the index. For optimal performance, use th
 ### .skipBits(n)
 Skip next `n` bits from the buffer by advancing the index. `n` can be any amount of bits, including negative values which will rewind the parser.
 
+### .getBuffer(len)
+Read `len` bytes, returning a `Buffer` object with the contents.
+
+*Note:* The returned buffer is only valid as long as the original buffer is not modified.
+
 ### .reset()
 Reset the parser, starting at index 0.
 

@@ -94,6 +94,26 @@ BitParser.prototype.skipBits = function(n) {
     this._fillCache();
 }
 
+BitParser.prototype.getBuffer = function(len) {
+  var buf;
+  if ((this.index & 0x7) === 0) {
+    var start = this.index >>> 3;
+    buf = this.buffer.slice(start, start + len);
+
+    this.index += len << 3;
+    if ((start >>> 2) !== (this.index >>> 5))
+      this._fillCache();
+  } else {
+    buf = new Buffer(len);
+    var index = 0;
+    for (; index < len-3; index += 4)
+      buf.writeUInt32BE(this.readBits(32), index, true);
+    for (; index < len; index++)
+        buf.writeUInt8(this.readBits(8), index, true);
+  }
+  return buf;
+}
+
 BitParser.prototype.reset = function() {
   this.index = ~~0;
   this._fillCache();

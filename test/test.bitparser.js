@@ -30,6 +30,16 @@ test(function(bp) {
 });
 
 test(function(bp) {
+  // aligned getBuffer
+  bp.skipBits(8);
+  assert.deepEqual(bp.getBuffer(5), new Buffer([0xAD, 0xBE, 0xEF, 0xF0, 0xAA]));
+  assert.equal(bp.readBits(4), 0x5);
+
+  // unaligned getBuffer
+  bp.reset();
+  bp.skipBits(4);
+  assert.deepEqual(bp.getBuffer(5), new Buffer([0xEA, 0xDB, 0xEE, 0xFF, 0x0A]));
+  assert.equal(bp.readBits(4), 0xA);
 });
 
 test(function(bp) {
