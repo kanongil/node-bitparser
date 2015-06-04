@@ -18,7 +18,7 @@
     "buffer"
   ],
   "author": "Gil Pedersen <gpdev@gpost.dk>",
-  "license": "BSD",
+  "license": "BSD-2-Clause",
   "readmeFilename": "README.md",
   "directories": {
     "test": "test"

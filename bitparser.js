@@ -13,7 +13,6 @@ function BitParser(buffer) {
   this._fillCache();
 }
 
-// last 5 bits of index must be === 0 when this is called
 BitParser.prototype._fillCache = function() {
   var rem = this.buffer.length - (this.index >>> 3);
   var offset = (this.index >>> 3) & ~3;
